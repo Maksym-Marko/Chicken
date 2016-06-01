@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="js" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>Chicken</title>
+	<meta name="viewport" content="initial-scale=1.0, width=device-width">
+	
+	<!--<link rel="stylesheet" type="text/css" href="style.css">-->
+
+	<style>
+		.chicken{
+			position: absolute;
+			display: block;
+			border: 1px solid blue;
+			z-index: 2;
+		}
+		.fly{			
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			display: block;
+			border: 1px solid red;
+		}
+		.egg{
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			display: none;
+			border: 1px solid yellow;
+			z-index: 1;
+		}
+		
+	</style>
+	
+	</head>
+<body>
+
+	<div class="coop">
+		<div class="chicken"></div>	
+		<span class="egg"></span>	
+	</div>
+
+	<!-- Scripts -->	
+	<script src="js/jquery-1.11.3.js"></script>
+	<script src="js/Chicken.js"></script>	
+	
+	<script src="js/common.js"></script>
+
+
+</body>
+</html>
