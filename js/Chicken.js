@@ -32,7 +32,7 @@
 			
 			PosX = 400, //Math.floor( ( Math.random() * 900 ) + 0 ),
 			
-			PosY = 300 //Math.floor( ( Math.random() * 400 ) + 0 ),
+			PosY = 300, //Math.floor( ( Math.random() * 400 ) + 0 ),
 			
 			CreateChicken = _this.css( {
 				
