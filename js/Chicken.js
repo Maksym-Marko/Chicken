@@ -1,11 +1,5 @@
 ;( function( $ ){
-	
-	function ConsLog( g ){
 		
-		console.log( g );
-		
-	}
-	
 	$.fn.Chicken = function( options ){
 		
 		var
@@ -15,12 +9,14 @@
 				'ChickFirstSize' : 40,
 				
 				// growth
-				'TeenagerChiken' : 60,
-				'Adult' : 100
+				'TeenagerChiken' : 80,
+				'Adult' : 120
 				
 			}, options ),			
 			
 			_this = this,
+			
+			keyMoveChicken = true,
 			
 			/*
 			*
@@ -30,6 +26,10 @@
 
 			SeedCount = 0, // eatings seed
 			
+			ChickStand = 'img/chickstand.gif',
+			
+			ChickGo = 'img/chickstandgo.gif',
+			
 			PosX = 400, //Math.floor( ( Math.random() * 900 ) + 0 ),
 			
 			PosY = 300 //Math.floor( ( Math.random() * 400 ) + 0 ),
@@ -38,8 +38,8 @@
 				
 				'width': settings.ChickFirstSize + 'px',
 				'height': settings.ChickFirstSize + 'px',
-				'left': PosX + 'px',
-				'top': PosY + 'px' 				
+				'left': PosX + 20 + 'px',
+				'top': PosY + 20 + 'px' 				
 				
 			} ),
 			
@@ -50,95 +50,121 @@
 			*/			
 			CreateFly = setInterval( function(){
 				
-				var
-					PosFlyX = Math.floor( ( Math.random() * 900 ) + 0 ),
-			
-					PosFlyY = Math.floor( ( Math.random() * 400 ) + 0 );
+				if( keyMoveChicken == true ){
 					
-				$( "<span class='fly'></span>" ).appendTo( '.coop' ).css( {
-					
-					'left': PosFlyX + 'px',
-					'top': PosFlyY + 'px'
-					
-				} );
-				
-				_this.animate( {
-					
-					'left': PosFlyX + 'px',
-					'top': PosFlyY + 'px'
-					
-				},1500 );
-				
-				setTimeout( function(){
-					
-					$( '.fly' ).remove();
-					
-				}, 1200 );
-				
-				SeedCount++;
-				
-				// growth
-				if( SeedCount > 5 && SeedCount < 10 ){ 
-					
-					_this.animate( {
-					
-						'width': settings.TeenagerChiken + 'px',
-						'height': settings.TeenagerChiken + 'px',
-						
-					},1000 );
-				
-				} 
-				if( SeedCount > 10 && SeedCount < 15 ){
-					
-					_this.animate( {
-					
-						'width': settings.Adult + 'px',
-						'height': settings.Adult + 'px',
-						
-					},1000 );
-				
-				}	
-				if( SeedCount > 15 ){
-					
-					_this.animate( {
-						
-						'left': PosX + 'px',
-						'top': PosY + 'px' 	
-						
-					}, 3000 );
+					keyMoveChicken = false;
 					
 					setTimeout( function(){
 						
-						$( '.egg' ).css( {
-							
-							'display': 'block',
-							'left': PosX  + 'px',
-							'top': PosY + 'px' 	
-							
-						} );
+						keyMoveChicken = true;
 						
-					}, 3500 );						
+					}, 1500 );
+					
+					var
+						PosFlyX = Math.floor( ( Math.random() * 900 ) + 0 ),
+				
+						PosFlyY = Math.floor( ( Math.random() * 400 ) + 0 );
+						
+					$( '.fly' ).css( {
+						
+						'display': 'block',
+						'left': PosFlyX + 'px',
+						'top': PosFlyY + 'px'
+						
+					} );
+					
+					_this.animate( {
+						
+						'left': PosFlyX + 'px',
+						'top': PosFlyY + 'px'
+						
+					},1500 );
+					
+					_this.children().attr( 'src', ChickGo );
 					
 					setTimeout( function(){
+						
+						$( '.fly' ).css( 'display', 'none' );
+						_this.children().attr( 'src', ChickStand );
+						
+					}, 1200 );
+					
+					SeedCount++;
+					
+					// growth
+					if( SeedCount > 10 && SeedCount < 20 ){ 
+						
+						_this.animate( {
+						
+							'width': settings.TeenagerChiken + 'px',
+							'height': settings.TeenagerChiken + 'px',
+							
+						},1000 );
+						
+						ChickStand = 'img/chickteenstand.gif';
+				
+						ChickGo = 'img/chickteengo.gif';
+					
+					} 
+					if( SeedCount > 20 && SeedCount < 30 ){
+						
+						_this.animate( {
+						
+							'width': settings.Adult + 'px',
+							'height': settings.Adult + 'px',
+							
+						},1000 );	
+						
+						ChickStand = 'img/chickadultstand.gif';
+				
+						ChickGo = 'img/chickadultgo.gif';
+					
+					}	
+					if( SeedCount > 30 ){
 						
 						_this.animate( {
 							
-							'left': '-900px',
-							'top': '20px'
+							'left': PosX + 'px',
+							'top': PosY + 'px' 	
 							
-						}, 5000 );		
+						}, 3000 );
 						
-					},20000 );
-					
-					setTimeout( function(){
+						setTimeout( function(){
+							
+							$( '.egg' ).css( {
+								
+								'display': 'block',
+								'left': PosX + 20 + 'px',
+								'top': PosY + 30 + 'px' 	
+								
+							} );
+							
+						}, 5500 );						
 						
-						window.location.reload();					
+						setTimeout( function(){
+							
+							_this.animate( {
+								
+								'left': '-900px',
+								'top': '20px'
+								
+							}, 5000 );		
+							
+						},20000 );
 						
-					},28000 );
-					
-					clearInterval( CreateFly );
+						setTimeout( function(){
+							
+							window.location.reload();					
+							
+						},28000 );
+						
+						clearInterval( CreateFly );
+						
+					}
 					
 				}
+				
+				
 				
 			}, 5000 ),
 			
@@ -149,95 +175,118 @@
 			*/		
 			CreateSeed = $( document ).on( 'click', function( e ){
 				
-				if( SeedCount > 15 ){
+				if( keyMoveChicken == true ){
 					
-					_this.animate( {
-						
-						'left': PosX + 'px',
-						'top': PosY + 'px' 	
-						
-					}, 3000 );
+					keyMoveChicken = false;
 					
 					setTimeout( function(){
 						
-						$( '.egg' ).css( {
-							
-							'display': 'block',
-							'left': PosX  + 'px',
-							'top': PosY + 'px' 	
-							
-						} );
+						keyMoveChicken = true;
 						
-					}, 3500 );						
+					}, 1500 );
 					
-					setTimeout( function(){
+					if( SeedCount > 30 ){
 						
 						_this.animate( {
 							
-							'left': '-900px',
-							'top': '20px'
+							'left': PosX + 'px',
+							'top': PosY + 'px' 	
 							
-						}, 5000 );		
+						}, 3000 );
 						
-					},20000 );
+						setTimeout( function(){
+							
+							$( '.egg' ).css( {
+								
+								'display': 'block',
+								'left': PosX + 20  + 'px',
+								'top': PosY + 20 + 'px' 	
+								
+							} );
+							
+						}, 3500 );						
+						
+						setTimeout( function(){
+							
+							_this.animate( {
+								
+								'left': '-900px',
+								'top': '20px'
+								
+							}, 5000 );		
+							
+						},20000 );
+						
+						setTimeout( function(){
+							
+							window.location.reload();					
+							
+						},28000 );
+						
+						return false;
+						
+					}
+					
+					var
+						PosSeedX = e.pageX,
+						PosSeedY = e.pageY;					
+						
+					$( '.seed' ).css( {
+						
+						'display': 'block',
+						'left': PosSeedX + 'px',
+						'top': PosSeedY + 'px'
+						
+					} );
+						
+					_this.animate( {
+						
+						'left': PosSeedX + 'px',
+						'top': PosSeedY + 'px'
+						
+					}, 1500 );	
+					
+					_this.children().attr( 'src', ChickGo );
 					
 					setTimeout( function(){
 						
-						window.location.reload();					
+						_this.children().attr( 'src', ChickStand );
+						$( '.seed' ).css( 'display', 'none' );
 						
-					},28000 );
+					}, 1200 );
 					
-					return false;
+					SeedCount++;
 					
-				}
-				
-				var
-					PosSeedX = e.pageX,
-					PosSeedY = e.pageY;
-					
-				$( "<span class='fly'></span>" ).appendTo( '.coop' ).css( {
-					
-					'left': PosSeedX + 'px',
-					'top': PosSeedY + 'px'
-					
-				} );
-					
-				_this.animate( {
-					
-					'left': PosSeedX + 'px',
-					'top': PosSeedY + 'px'
-					
-				}, 1500 );	
-				
-				setTimeout( function(){
-					
-					$( '.fly' ).remove();
-					
-				}, 1200 );
-				
-				SeedCount++;
-				
-				// growth
-				if( SeedCount > 5 && SeedCount < 10 ){ 
-					
-					_this.animate( {
-					
-						'width': settings.TeenagerChiken + 'px',
-						'height': settings.TeenagerChiken + 'px',
+					// growth
+					if( SeedCount > 10 && SeedCount < 20 ){ 
 						
-					},1000 );
-				
-				} 
-				if( SeedCount > 10 ){
-					
-					_this.animate( {
-					
-						'width': settings.Adult + 'px',
-						'height': settings.Adult + 'px',
+						_this.animate( {
 						
-					},1000 );
+							'width': settings.TeenagerChiken + 'px',
+							'height': settings.TeenagerChiken + 'px',
+							
+						},1000 );
+						
+						ChickStand = 'img/chickteenstand.gif';
 				
-				}					
+						ChickGo = 'img/chickteengo.gif';
+					
+					} 
+					if( SeedCount > 20 ){
+						
+						_this.animate( {
+						
+							'width': settings.Adult + 'px',
+							'height': settings.Adult + 'px',
+							
+						},1000 );
+						
+						ChickStand = 'img/chickadultstand.gif';
+				
+						ChickGo = 'img/chickadultgo.gif';
+					}
+					
+				}				
 				
 			} );
 					

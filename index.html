@@ -11,23 +11,38 @@
 		.chicken{
 			position: absolute;
 			display: block;
-			border: 1px solid blue;
 			z-index: 2;
+		}
+		.chicken img{
+			width: 100%;
 		}
 		.fly{			
 			position: absolute;
-			width: 20px;
-			height: 20px;
-			display: block;
-			border: 1px solid red;
+			width: 40px;
+			height: 40px;
+			display: none;
+		}
+		.fly img{
+			width: 100%;
+		}
+		.seed{
+			position: absolute;
+			width: 40px;
+			height: 40px;
+			display: none;
+		}
+		.seed img{
+			width: 100%;
 		}
 		.egg{
 			position: absolute;
 			width: 40px;
 			height: 40px;
 			display: none;
-			border: 1px solid yellow;
 			z-index: 1;
+		}
+		.egg img{
+			width: 100%;
 		}
 		
 	</style>
@@ -36,10 +51,24 @@
 <body>
 
 	<div class="coop">
-		<div class="chicken"></div>	
-		<span class="egg"></span>	
+	
+		<div class="fly">
+			<img src="img/fly.gif" />
+		</div>	
+		
+		<div class="seed">
+			<img src="img/seed.gif" />
+		</div>	
+		
+		<div class="chicken">
+			<img src="img/chickstand.gif" />
+		</div>	
+		
+		<span class="egg">
+			<img src="img/egg.gif" />
+		</span>	
 	</div>
-
+	
 	<!-- Scripts -->	
 	<script src="js/jquery-1.11.3.js"></script>
 	<script src="js/Chicken.js"></script>	
